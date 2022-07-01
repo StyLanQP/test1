@@ -15,9 +15,7 @@ on:
 jobs:
   deployment:
     runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://github.com
+    environment: production
   # This workflow contains a single job called "build"
   docs:
     # The type of runner that the job will run on
