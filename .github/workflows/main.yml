@@ -6,10 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main", "test" ]
-  pull_request:
-    branches: [ "main", "test" ]
-
+    branches: [ "main" ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -22,25 +19,41 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+        with:
+          # “最近更新时间” 等 git 日志相关信息，需要拉取全部提交记录
+          fetch-depth: 0
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          # 选择要使用的 node 版本
+          node-version: '14'
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      # 缓存 node_modules
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      # 如果缓存没有命中，安装依赖
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn --registry=http://maven.thingsmatrix.cn:8182/repository/npm_group/
+
+
       - name: Deploy to GitHub Pages
-        uses: actions/checkout@v3
+        uses: crazy-max/ghaction-github-pages@v2
         with:
           # 部署到 gh-pages 分支
           target_branch: gh-pages
           # 部署目录为 VuePress 的默认输出目录
-          build_dir: dist
+          build_dir: docs/.vuepress/dist
         env:
           # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           GITHUB_TOKEN: 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
