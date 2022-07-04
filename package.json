@@ -1,0 +1,26 @@
+{
+  "name": "tmx-ui",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">     <a>         <img width=\"200\" src=\"./assets/logo.png\">     </a> </p>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "deploy": "gh-pages -d docs/.vuepress/dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StyLanQP/tmx-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StyLanQP/tmx-ui/issues"
+  },
+  "homepage": "https://github.com/StyLanQP/tmx-ui#readme",
+  "dependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}
