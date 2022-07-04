@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d docs/.vuepress/dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
