@@ -1,8 +1,0 @@
-node_modules
-docs/.vuepress/dist
-.history
-.DS_Store
-.vscode/
-package-lock.json
-yarn.lock
-yarn-error.log
